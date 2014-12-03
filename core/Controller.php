@@ -6,6 +6,7 @@
  * Time: 0:28
  */
 
-class Controller {
-
+abstract class Controller {
+    abstract function __call($name, $args);
+    abstract function index();
 } 
