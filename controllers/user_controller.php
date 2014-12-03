@@ -11,7 +11,7 @@ class User_Controller extends Controller{
     }
 
     public function newUser(){
-        echo "I am USer newUser controller method";
+        echo "I am User newUser controller method";
     }
 
     public function showAllUsers(){

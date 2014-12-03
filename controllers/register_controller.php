@@ -11,6 +11,6 @@ class Register_Controller extends Controller{
     }
 
     public function __call($name, $arguments){
-        echo "That method {$name} don't exist in present controller";
+        echo "That method <b>{$name}</b> don't exist in present controller";
     }
 }
