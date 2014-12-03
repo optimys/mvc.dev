@@ -8,7 +8,9 @@
 
 class Home_Controller extends Controller{
     public function index($name = "Alex"){
-        echo "Hello {$name}";
+        $home = new View();
+        $home->setData();
+        $home->display();
     }
 
     public function __call($name, $arguments){

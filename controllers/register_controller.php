@@ -7,7 +7,9 @@
  */
 class Register_Controller extends Controller{
     public function index(){
-        echo "I am Register controller index";
+        $home = new View();
+        $home->setData();
+        $home->display();
     }
 
     public function __call($name, $arguments){

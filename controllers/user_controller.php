@@ -7,7 +7,9 @@
  */
 class User_Controller extends Controller{
     public function index(){
-        echo "I am USer index controller method";
+        $home = new View();
+        $home->setData();
+        $home->display();
     }
 
     public function newUser(){

@@ -8,7 +8,9 @@
 
 class contacts_controller extends Controller {
     public function index(){
-        echo "I'am Contacts Page";
+        $home = new View();
+        $home->setData();
+        $home->display();
     }
 
     public function __call($name, $args){

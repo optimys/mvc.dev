@@ -7,7 +7,9 @@
  */
 class About_Controller extends Controller{
     public function index(){
-        echo "I am About controller!";
+        $home = new View();
+        $home->setData();
+        $home->display();
     }
 
     public function __call($name, $arguments){
