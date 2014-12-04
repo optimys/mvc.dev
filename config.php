@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+const BASEURL = "http//mvc/";
 require_once('core/init.php');
 
 spl_autoload_register(function($class){

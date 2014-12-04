@@ -2,29 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: Alex
- * Date: 04.12.2014
- * Time: 2:02
+ * Date: 05.12.2014
+ * Time: 0:20
  */
 
-class View {
-
-    private $data;
-    protected static $baseUrl;
+class Error_view extends View {
+    private $massage;
 
     public function __construct(){
-        self::$baseUrl = $_SERVER['HTTP_HOST'];
+        parent::__construct();
     }
 
     public function  setData($data){
-        $this->data = $data;
-        return $this;
+        $this->massage = Errors_helper::getPrettyMessage($data,'warning');
     }
 
     public function display($page){
-        $data = $this->data;
         $baseUrl = self::$baseUrl;
+        $massage = $this->massage;
         require_once("/views/layouts/{$page}_tpl.php");
-
     }
-
 } 

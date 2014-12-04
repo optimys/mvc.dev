@@ -6,13 +6,6 @@
  * Time: 0:15
  */
 class Register_Controller extends Controller{
-    public function index(){
-        $home = new View();
-        $home->setData();
-        $home->display();
-    }
 
-    public function __call($name, $arguments){
-        echo "That method <b>{$name}</b> don't exist in present controller";
-    }
+
 }

@@ -8,13 +8,9 @@
 
 class Home_Controller extends Controller{
     public function index($name = "Alex"){
-        $home = new View();
-        $home->setData();
-        $home->display();
+        $home = new Home_view();
+        $home->setData("Hello");
+        $home->display('main');
     }
 
-    public function __call($name, $arguments){
-        echo "That method <b>{$name}</b> don't exist in present controller<br>";
-        $this->index();
-    }
 }

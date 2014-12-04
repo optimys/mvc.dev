@@ -3,10 +3,9 @@
  * Created by PhpStorm.
  * User: Alex
  * Date: 04.12.2014
- * Time: 1:34
+ * Time: 23:59
  */
 
-class contacts_controller extends Controller {
-
+class Home_view extends View {
 
 } 
