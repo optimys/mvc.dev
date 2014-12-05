@@ -7,6 +7,13 @@
  */
 class User_Controller extends Controller{
 
+    public function index($name = "Alex"){
+        $data['title']="Users page";
+        $user = new Home_view();
+        $user->setData($data);
+        $user->display('main',array('page_header','user_profile','user_profile','user_profile','user_profile'));
+    }
+
     public function newUser(){
         echo "I am User newUser controller method";
     }

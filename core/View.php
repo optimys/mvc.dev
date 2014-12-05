@@ -20,11 +20,9 @@ class View {
         return $this;
     }
 
-    public function display($page){
+    public function display($page, $blocks=false){
         $data = $this->data;
-        $baseUrl = self::$baseUrl;
         require_once("/views/layouts/{$page}_tpl.php");
-
     }
 
 } 
