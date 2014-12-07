@@ -6,12 +6,20 @@
  * Time: 0:28
  */
 
+/**
+ * Class Controller
+ * This is base class for all controllers
+ */
 abstract class Controller {
     public  function __call($name, $args){
-        $data = "This method {$name}, doesn't exists";
-        $error = new Error_view();
+        $data = array(
+            'message' =>array(
+                'type'=>'danger',
+                'text'=>"There is no method <strong>{$name}</strong>"
+            ));
+        $error = new View();
         $error->setData($data);
-        $error->display('error');
+        $error->display('error',array('panel'));
     }
     public  function index(){
         $data = "This is default method ".__METHOD__;

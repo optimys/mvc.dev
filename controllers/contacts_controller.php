@@ -7,12 +7,15 @@
  */
 
 class contacts_controller extends Controller {
-    public function index($name = "Alex"){
+    public function index(){
         $data=array();
         $data['title']="Contact page";
-        $contact = new Home_view();
+        $contact = new View();
         $contact->setData($data);
-        $contact->display('main',array('page_header','contact_form','panel'));
+        $contact->display('main',array(
+            'page_header',
+            'contact_form',
+            'panel'));
     }
 
 } 

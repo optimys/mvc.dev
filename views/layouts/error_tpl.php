@@ -21,14 +21,20 @@
         <nav class="navbar navbar-default " role="navigation">
             <div class="container">
                 <ul class="nav navbar-nav">
-                    <li><a href="http://<?=$baseUrl?>/home">Go to main page</a></li>
+                    <li><a href="<?= $data['baseUrl'] ?>home">Go to main page</a></li>
                 </ul>
             </div>
         </nav>
     </div>
-    <div class="row">
-         <?= $massage; ?>
-    </div>
+    <?php
+    if ($blocks) {
+        foreach ($blocks as $block) {
+            require("views/blocks/{$block}.php");
+        }
+    }
+    ?>
+
+
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>

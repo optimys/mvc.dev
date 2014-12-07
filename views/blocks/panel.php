@@ -1,5 +1,6 @@
-<div class="panel panel-default">
+<div class="panel panel-<?=$data['controller']['message']['type'];?>">
+    <div class="panel-heading"><?=strtoupper($data['controller']['message']['type']);?></div>
     <div class="panel-body">
-        Basic panel example
+        <?=$data['controller']['message']['text'];?>
     </div>
 </div>

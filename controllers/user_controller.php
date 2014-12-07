@@ -9,7 +9,7 @@ class User_Controller extends Controller{
 
     public function index($name = "Alex"){
         $data['title']="Users page";
-        $user = new Home_view();
+        $user = new View();
         $user->setData($data);
         $user->display('main',array('page_header','user_profile','user_profile','user_profile','user_profile'));
     }

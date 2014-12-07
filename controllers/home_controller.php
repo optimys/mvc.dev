@@ -8,8 +8,20 @@
 
 class Home_Controller extends Controller{
     public function index($name = "Alex"){
-        $home = new Home_view();
-        $home->setData("Hello");
+
+        $user = new Model();
+        $user->get('users',array(
+            'field' => 'login',
+            'operator' => '=',
+            'value' => 'alex'
+        ));
+        $message = "DB results: ".$user->result['name'] ." | ". $user->result['email'];
+
+        $home = new View();
+        $home->setData( array(
+            'message'=>array(
+                'type' => 'info',
+                'text'=>$message)));
         $home->display('main',array('jumbotron','panel'));
     }
 

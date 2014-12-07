@@ -6,21 +6,24 @@
  * Time: 2:02
  */
 
+/**
+ * Class View
+ * THis is base class for all Views
+ */
 class View {
 
-    private $data;
-    protected static $baseUrl;
+    public  $data = array();
 
     public function __construct(){
-        self::$baseUrl = $_SERVER['HTTP_HOST'];
+        $this->data['baseUrl'] = "http://".$_SERVER['HTTP_HOST']."/";
     }
 
-    public function  setData($data){
-        $this->data = $data;
+    public function  setData($data=array()){
+        $this->data['controller'] = $data;
         return $this;
     }
 
-    public function display($page, $blocks=false){
+    public function display($page, $blocks = false){
         $data = $this->data;
         require_once("/views/layouts/{$page}_tpl.php");
     }

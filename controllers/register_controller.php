@@ -8,7 +8,7 @@
 class Register_Controller extends Controller{
     public function index(){
         $data['title']="Register page";
-        $register = new Home_view();
+        $register = new View();
         $register->setData($data);
         $register->display('main',array('page_header','registr_form'));
     }

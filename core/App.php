@@ -6,6 +6,11 @@
  * Date: 03.12.2014
  * Time: 1:18
  */
+
+/**
+ * Class App
+ * This is Router
+ */
 class App
 {
     private $path;
@@ -20,8 +25,7 @@ class App
 
     private function __construct()
     {
-        $urlPartsArray = parse_url($_SERVER['REQUEST_URI']);
-        $this->path = trim($urlPartsArray['path'], '/');
+        $this->path = trim($_GET['url'], '/');
         $this->getRouter();
     }
 
