@@ -1,57 +1,50 @@
-
+<form method="post" action="register/register" enctype="multipart/form-data" name="register_new">
+    <div class="col-md-12">
+        <?php
+        if(isset($data['error'])){
+            foreach($data['error'] as $error){
+                echo "<h3>Warning {$eroor}</h3>";
+            }
+        }
+        ?>
+    </div>
             <div class="col-md-6">
                 <h3 class="dark-grey">Registration</h3>
 
-                <div class="form-group col-lg-12">
-                    <label>Username</label>
-                    <input type="" name="" class="form-control" id="" value="">
+                <div class="form-group col-lg-6">
+                    <label for="login">Username</label>
+                    <input type="" name="login" class="form-control" id="login" value="">
                 </div>
 
                 <div class="form-group col-lg-6">
-                    <label>Password</label>
-                    <input type="password" name="" class="form-control" id="" value="">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" value="">
                 </div>
 
                 <div class="form-group col-lg-6">
-                    <label>Repeat Password</label>
-                    <input type="password" name="" class="form-control" id="" value="">
+                    <label for="email"> Email Address</label>
+                    <input type="email" name="email" class="form-control" id="email" value="">
                 </div>
 
                 <div class="form-group col-lg-6">
-                    <label>Email Address</label>
-                    <input type="" name="" class="form-control" id="" value="">
+                    <label for="password_again">Repeat Password</label>
+                    <input type="password" name="password_again" class="form-control" id="password_again" value="">
+                </div>
+
+
+                <div class="form-group col-lg-6">
+                    <label for="avatar">Avatar</label>
+                    <input type="file" name="avatar" class="form-control" id="avatar" value="">
                 </div>
 
                 <div class="form-group col-lg-6">
-                    <label>Repeat Email Address</label>
-                    <input type="" name="" class="form-control" id="" value="">
+                    <label class="col-md-12" for="register">Complete</label>
+                    <button type="submit" class="btn btn-primary pull-right" id="register">Register</button>
                 </div>
-
-                <div class="col-sm-6">
-                    <input type="checkbox" class="checkbox" />Sigh up for our newsletter
-                </div>
-
-                <div class="col-sm-6">
-                    <input type="checkbox" class="checkbox" />Send notifications to this email
-                </div>
-
             </div>
 
             <div class="col-md-6">
-                <h3 class="dark-grey">Terms and Conditions</h3>
-                <p>
-                    By clicking on "Register" you agree to The Company's' Terms and Conditions
-                </p>
-                <p>
-                    While rare, prices are subject to change based on exchange rate fluctuations -
-                    should such a fluctuation happen, we may request an additional payment. You have the option to request a full refund or to pay the new price. (Paragraph 13.5.8)
-                </p>
-                <p>
-                    Should there be an error in the description or pricing of a product, we will provide you with a full refund (Paragraph 13.5.6)
-                </p>
-                <p>
-                    Acceptance of an order by us is dependent on our suppliers ability to provide the product. (Paragraph 13.5.6)
-                </p>
-
-                <button type="submit" class="btn btn-primary">Register</button>
+                <h3 class="dark-grey">About you</h3>
+                <textarea type="text" name="about" class="form-control" id="about" cols="50" rows="9"></textarea>
             </div>
+</form>

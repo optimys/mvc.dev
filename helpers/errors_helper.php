@@ -7,17 +7,20 @@
  */
 
 class Errors_helper {
-    private  $message;
 
-    public function __construct(){
-
-    }
-
-    private  function setMessage(){
-
-    }
-
-    static  function getPrettyMessage($message, $type='info'){
+    static  function getDiv($message, $type='info'){
       return "<div class='alert alert-{$type}' role='alert'>".strtoupper($message)."</div>";
+    }
+
+    public static function getParagraph($message, $type='info'){
+        return "<p class='text-{$type}'>".strtoupper($message)."</p>";
+    }
+
+    public static function getBeckGroundParagraph($message, $type='info'){
+        return "<p class='bg-{$type}'>".strtoupper($message)."</p>";
+    }
+
+    public static function getLabel($message, $type='info'){
+        return "<span class='label label-{$type}'>".strtoupper($message)."</span>";
     }
 } 

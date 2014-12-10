@@ -10,11 +10,12 @@ class Model
 {
     private $db;
     public $result = array();
+    private static $connect;
 
     public function __construct()
     {
         try {
-            $this->db = $this->connect();
+            $this->db = self::connect();
         } catch (Exception $e) {
             die("Can't connect to DB");
         }
@@ -26,7 +27,7 @@ class Model
         if (mysql_select_db('mvcdev', $connect)) {
             return $connect;
         }
-        return false;
+        throw(new Exception);
     }
 
     public function get($table, $where = array())
@@ -67,5 +68,11 @@ class Model
             return " {$where['field']} {$where['operator']} \"{$where['value']}\" ";
         }
         return false;
+    }
+
+    public static function exist($table, $where = array()){
+        $where = self::whereBuilder($where);
+        $result = mysql_query("SELECT * FROM {$table} WHERE {$where}", self::$connect);
+        return ($result) ? false : true;
     }
 } 
