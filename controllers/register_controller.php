@@ -13,23 +13,28 @@ class Register_Controller extends Controller{
         $register->display('main',array('page_header','registr_form'));
     }
 
-    public function register(){
-        $user       = new User_model();
+    public function newUser(){
+        $check      = new Validator_Helper();
         $register   = new View();
+        $model      = new Model();
 
-        $check = $user->getValid();
-        if( empty($check) ){
-            $register->setData(array(
-                'message'=>array(
-                    'type'=>'info',
-                    'text'=>$user->getValid()
-                )
+        $hasErrors = $check->checkForm($_POST);
+        if( is_null($hasErrors) ){
+            $model->insert('users', array(
+                'login'     => Input_helper::get($_POST,'login'),
+                'password'  => Input_helper::get($_POST,'password'),
+                'email'     => Input_helper::get($_POST,'email')
             ));
             $register->display('main',array('jumbotron','panel'));
         }else{
-            $data['error'] = $check;
+            if(!is_null($hasErrors)){
+                var_dump($hasErrors);
+                echo "FUCK!";
+            };
+            $data['errors'] = $hasErrors;
+            $data['title']="Error while register";
             $register->setData($data);
-            $register->display('main',array('page_header','registr_form'));
+            $register->display('main',array('page_header','error_list','registr_form'));
         }
     }
 

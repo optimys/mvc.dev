@@ -15,7 +15,7 @@ return array(
             'max'       => 30
         )
     ),
-    'register'=>array(
+    'newUser'=>array(
         'login'=>array(
             'require'   => true,
             'min'       => 3,

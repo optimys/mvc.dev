@@ -10,40 +10,43 @@ class Model
 {
     private $db;
     public $result = array();
-    private static $connect;
 
     public function __construct()
     {
         try {
-            $this->db = self::connect();
+            $this->db = mysql_connect('localhost', 'root', '');
+            mysql_select_db('mvcdev', $this->db);
         } catch (Exception $e) {
             die("Can't connect to DB");
         }
-    }
-
-    private static function connect()
-    {
-        $connect = mysql_connect('localhost', 'root', '');
-        if (mysql_select_db('mvcdev', $connect)) {
-            return $connect;
-        }
-        throw(new Exception);
     }
 
     public function get($table, $where = array())
     {
         $where = $this->whereBuilder($where);
         $result = mysql_query("SELECT * FROM {$table} WHERE {$where}", $this->db);
-        while ($row = mysql_fetch_assoc($result)) {
-            $this->result = $row;
+        if($result) {
+            while ($row = mysql_fetch_assoc($result)) {
+                $this->result[] = $row;
+            }
         }
         return $this;
     }
 
-    public function insert($table, $columns, $values)
+    public function insert($table, $keyVal=array())
     {
-        $result = mysql_query("INSERT INTO {$table} $columns VALUES {$values}", $this->db);
+        $values="";
+        $columns="";
+        foreach($keyVal as $key => $val){
+            $columns .=" {$key} ";
+            $values .=" '{$val}', ";
+        }
+        $columns = trim($columns);
+        $values = rtrim($values, ",");
+        $query = "INSERT INTO {$table} {$columns} VALUES {$values}";
+        $result = mysql_query("INSERT INTO {$table} {$columns} VALUES {$values}", $this->db);
         $this->result = $result;
+        echo $query;
         return $this;
     }
 
@@ -61,7 +64,7 @@ class Model
         return $this;
     }
 
-    private function whereBuilder($where = array())
+    private  function whereBuilder($where = array())
     {
         $operators = array('<', '>', '<=', '>=', '=');
         if (in_array($where['operator'], $operators)) {
@@ -70,9 +73,12 @@ class Model
         return false;
     }
 
-    public static function exist($table, $where = array()){
-        $where = self::whereBuilder($where);
-        $result = mysql_query("SELECT * FROM {$table} WHERE {$where}", self::$connect);
-        return ($result) ? false : true;
+    public function first(){
+        if(!empty($this->result)) {
+            return $this->result[0];
+        }else{
+            return false;
+        }
     }
+
 } 

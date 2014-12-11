@@ -18,10 +18,7 @@ class Home_Controller extends Controller{
         $message = "DB results: ".$user->result['name'] ." | ". $user->result['email'];
 
         $home = new View();
-        $home->setData( array(
-            'message'=>array(
-                'type' => 'info',
-                'text'=>$message)));
+        $home->setData( array('errors'=>Errors_helper::getBeckGroundParagraph($message, 'success')));
         $home->display('main',array('jumbotron','panel'));
     }
 

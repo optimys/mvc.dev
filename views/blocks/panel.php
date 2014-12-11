@@ -1,6 +1,6 @@
-<div class="panel panel-<?=$data['controller']['message']['type'];?>">
-    <div class="panel-heading"><?=strtoupper($data['controller']['message']['type']);?></div>
+<div class="panel panel-info">
+    <div class="panel-heading">Info</div>
     <div class="panel-body">
-        <?=$data['controller']['message']['text'];?>
+        <?=$data['error'];?>
     </div>
 </div>

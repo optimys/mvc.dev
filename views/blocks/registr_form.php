@@ -1,4 +1,4 @@
-<form method="post" action="register/register" enctype="multipart/form-data" name="register_new">
+<form method="post" action="register/newUser" enctype="multipart/form-data" name="register_new">
     <div class="col-md-12">
         <?php
         if(isset($data['error'])){

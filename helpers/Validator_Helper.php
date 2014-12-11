@@ -10,37 +10,38 @@ class Validator_Helper {
     private $error = array();
     private $conditions =array();
     private $formType;
+    private $dbRequest;
 
     public function __construct(){
         //Load all conditions for login/register/change/etc...
         $this->conditions = require_once('valid_conditions.php');
         $this->formType = explode("/",$_GET['url'])[1];
+        $this->dbRequest = new Model();
     }
 
     public  function checkForm($type){
         $inputCheck = $this->checkInput();
         if($inputCheck === true){
             $formSettings = $this->conditions[$this->formType];
-            foreach($formSettings as $field=>$rules){
+            foreach($formSettings as $field => $rules){
                 foreach($rules as $rule => $ruleValue) {
-                    $inputValue = Input_helper::get($type,$field)."<br>";
-                    echo "{$field} = {$inputValue} and {$rule}= {$ruleValue}<br>";
+                    $inputValue = Input_helper::get($type,$field);
                     switch ($rule) {
                         case 'min':
-                            ($inputValue < $ruleValue) ? true : $this->setError("Minimum {$ruleValue} for {$field} field");
+                            (strlen($inputValue) < $ruleValue) ? $this->setError("Minimum {$ruleValue} for {$field} field") : true;
                             break;
                         case 'max':
-                            ($inputValue > $ruleValue) ? true : $this->setError("Maximum {$ruleValue} for {$field} field");
+                            (strlen($inputValue) > $ruleValue) ? $this->setError("Maximum {$ruleValue} for {$field} field") : true ;
                             break;
                         case 'match':
                             ($inputValue === Input_helper::get($type, $ruleValue)) ? true : $this->setError("{$field} must match {$ruleValue}");
                             break;
                         case 'require':
-                            (isset($inputValue)) ? true : $this->setError("{$field} is required");
+                            ($ruleValue && empty($inputValue)) ? $this->setError("{$field} is required") : true;
                             break;
                         case 'unique':
-                            $check = Model::exist("users", array($field, "=", $inputValue));
-                            ($check) ? true : $this->setError("Value of {$field} must be unique");
+                            $check = $this->dbRequest->get("users", array($field, "=", $inputValue));
+                            ($check->first()) ? $this->setError("Value of {$field} must be unique") : true ;
                             break;
                         default:
                             break;
@@ -80,7 +81,4 @@ class Validator_Helper {
         }
     }
 
-    public function test(){
-        var_dump($this->conditions);
-    }
 } 

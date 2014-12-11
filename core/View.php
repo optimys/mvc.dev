@@ -19,7 +19,7 @@ class View {
     }
 
     public function  setData($data=array()){
-        $this->data['controller'] = $data;
+        $this->data =array_merge($this->data,$data);
         return $this;
     }
 
