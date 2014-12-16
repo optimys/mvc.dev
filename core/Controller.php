@@ -12,11 +12,7 @@
  */
 abstract class Controller {
     public  function __call($name, $args){
-        $data = array(
-            'message' =>array(
-                'type'=>'danger',
-                'text'=>"There is no method <strong>{$name}</strong>"
-            ));
+        $data['errors'] = Info_helper::getParagraph("No such method",'warning');
         $error = new View();
         $error->setData($data);
         $error->display('error',array('panel'));

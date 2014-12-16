@@ -17,11 +17,11 @@ class Validator_Helper {
         $this->conditions = require_once('valid_conditions.php');
         $this->formType = explode("/",$_GET['url'])[1];
         $this->dbRequest = new Model();
+        $this->checkForm($_POST);
     }
 
-    public  function checkForm($type){
-        $inputCheck = $this->checkInput();
-        if($inputCheck === true){
+    private  function checkForm($type){
+        if($this->checkInput()){
             $formSettings = $this->conditions[$this->formType];
             foreach($formSettings as $field => $rules){
                 foreach($rules as $rule => $ruleValue) {
@@ -40,8 +40,8 @@ class Validator_Helper {
                             ($ruleValue && empty($inputValue)) ? $this->setError("{$field} is required") : true;
                             break;
                         case 'unique':
-                            $check = $this->dbRequest->get("users", array($field, "=", $inputValue));
-                            ($check->first()) ? $this->setError("Value of {$field} must be unique") : true ;
+                            $check = $this->dbRequest->get("users", array($field, "=", $inputValue))->first();
+                            ($check) ? $this->setError("Value of {$field} must be unique") : true ;
                             break;
                         default:
                             break;
@@ -64,12 +64,12 @@ class Validator_Helper {
         if(!empty($_POST )){
             return true;
         }else{
-            return Errors_helper::getBeckGroundParagraph("No data was send", 'danger');
+            return false;
         }
     }
 
-    public  function setError($message){
-        $message = Errors_helper::getLabel($message, 'warning');
+    private  function setError($message){
+        $message = Info_helper::getLabel($message, 'warning');
         $this->error[] = $message;
     }
 

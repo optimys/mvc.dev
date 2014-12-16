@@ -11,7 +11,7 @@ class Input_helper {
         if(isset($type[$field])){
             return $type[$field];
         }else{
-            return Errors_helper::getLabel("no such input",'danger');
+            return Info_helper::getLabel("no such input",'danger');
         }
     }
 } 

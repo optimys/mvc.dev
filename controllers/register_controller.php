@@ -8,33 +8,26 @@
 class Register_Controller extends Controller{
     public function index(){
         $data['title']="Register page";
+        if(Session_helper::exist('errors')){
+            $data['title']="Error while register";
+            $data['errors'] = Session_helper::get('errors');
+            Session_helper::remove('errors');
+        }
         $register = new View();
         $register->setData($data);
-        $register->display('main',array('page_header','registr_form'));
+        $register->display('main',array('page_header','error_list','registr_form'));
     }
 
     public function newUser(){
-        $check      = new Validator_Helper();
-        $register   = new View();
-        $model      = new Model();
+        $model = new User_model();
 
-        $hasErrors = $check->checkForm($_POST);
-        if( is_null($hasErrors) ){
-            $model->insert('users', array(
-                'login'     => Input_helper::get($_POST,'login'),
-                'password'  => Input_helper::get($_POST,'password'),
-                'email'     => Input_helper::get($_POST,'email')
-            ));
-            $register->display('main',array('jumbotron','panel'));
+        if(!$model->getErrors()){
+            $model->newUser();
+            Session_helper::set('success', Info_helper::getBeckGroundParagraph("You registered success!","success"));
+            Redirect_helper::redirect('home');
         }else{
-            if(!is_null($hasErrors)){
-                var_dump($hasErrors);
-                echo "FUCK!";
-            };
-            $data['errors'] = $hasErrors;
-            $data['title']="Error while register";
-            $register->setData($data);
-            $register->display('main',array('page_header','error_list','registr_form'));
+            Session_helper::set('errors',$model->getErrors());
+            Redirect_helper::redirect('register');
         }
     }
 

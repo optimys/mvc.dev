@@ -9,7 +9,7 @@
 class Model
 {
     private $db;
-    public $result = array();
+    private  $result = array();
 
     public function __construct()
     {
@@ -24,12 +24,16 @@ class Model
     public function get($table, $where = array())
     {
         $where = $this->whereBuilder($where);
-        $result = mysql_query("SELECT * FROM {$table} WHERE {$where}", $this->db);
+
+        $query = "SELECT * FROM {$table} WHERE {$where}";
+
+        $result = mysql_query($query, $this->db);
         if($result) {
             while ($row = mysql_fetch_assoc($result)) {
                 $this->result[] = $row;
             }
         }
+        mysql_free_result($result);// Free memory from result data
         return $this;
     }
 
@@ -38,15 +42,16 @@ class Model
         $values="";
         $columns="";
         foreach($keyVal as $key => $val){
-            $columns .=" {$key} ";
-            $values .=" '{$val}', ";
+            $columns .=" {$key}, ";
+            $values  .=" '{$val}', ";
         }
-        $columns = trim($columns);
-        $values = rtrim($values, ",");
-        $query = "INSERT INTO {$table} {$columns} VALUES {$values}";
-        $result = mysql_query("INSERT INTO {$table} {$columns} VALUES {$values}", $this->db);
+        $columns = rtrim($columns, ", ");
+        $values = rtrim($values, ", ");
+
+        $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
+
+        $result = mysql_query($query, $this->db);
         $this->result = $result;
-        echo $query;
         return $this;
     }
 
@@ -66,14 +71,16 @@ class Model
 
     private  function whereBuilder($where = array())
     {
+        //$where[0]=field, $where[1]=operator, $where[2]=value
         $operators = array('<', '>', '<=', '>=', '=');
-        if (in_array($where['operator'], $operators)) {
-            return " {$where['field']} {$where['operator']} \"{$where['value']}\" ";
+        if (in_array($where[1], $operators)) {
+            return " {$where[0]} {$where[1]} \"{$where[2]}\" ";
         }
         return false;
     }
 
     public function first(){
+
         if(!empty($this->result)) {
             return $this->result[0];
         }else{

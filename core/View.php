@@ -19,11 +19,11 @@ class View {
     }
 
     public function  setData($data=array()){
-        $this->data =array_merge($this->data,$data);
+        $this->data = array_merge($this->data, $data);
         return $this;
     }
 
-    public function display($page, $blocks = false){
+    public function display($page, $blocks=array()){
         $data = $this->data;
         require_once("/views/layouts/{$page}_tpl.php");
     }

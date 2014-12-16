@@ -6,6 +6,7 @@
     <link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
     <link type="test/css" rel="stylesheet"
           href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
+    <link type="text/css" href="<?=$data['baseUrl']?>css/style.css" rel="stylesheet" />
 </head>
 <body>
 <div class="container">

@@ -7,19 +7,38 @@
  */
 
 class Home_Controller extends Controller{
+    private $home;
+    private $user;
+
+
     public function index($name = "Alex"){
 
-        $user = new Model();
-        $user->get('users',array(
-            'field' => 'login',
-            'operator' => '=',
-            'value' => 'alex'
-        ));
-        $message = "DB results: ".$user->result['name'] ." | ". $user->result['email'];
-
+        $data = array();
         $home = new View();
-        $home->setData( array('errors'=>Errors_helper::getBeckGroundParagraph($message, 'success')));
-        $home->display('main',array('jumbotron','panel'));
+        $user = new Model();
+
+        if(Session_helper::exist('success')){
+            $data['info'] = Session_helper::get('success');
+            Session_helper::remove('success');
+
+        }elseif(Session_helper::exist('errors')){
+            $data['errors']=Session_helper::get('errors');
+            Session_helper::remove('errors');
+        }
+        $home->setData($data);
+        $home->display('main', array('jumbotron'));
+    }
+
+    public function login(){
+        $login = new User_model();
+        $login->login();
+        Redirect_helper::redirect('home');
+
+    }
+
+    public function logout(){
+        Session_helper::remove('logged');
+        Redirect_helper::redirect('home');
     }
 
 }

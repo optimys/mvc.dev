@@ -7,7 +7,6 @@ return array(
             'require'   => true,
             'min'       => 3,
             'max'       => 30,
-            'unique'    => true
         ),
         'password'=>array(
             'require'   => true,
@@ -32,7 +31,8 @@ return array(
             'match'     =>'password'
         ),
         'email'=>array(
-            'require'   => false
+            'require'   => true,
+            'unique'    => true
         ),
         'avatar'=>array(
             'require'   => false

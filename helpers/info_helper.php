@@ -6,7 +6,7 @@
  * Time: 0:34
  */
 
-class Errors_helper {
+class Info_helper {
 
     static  function getDiv($message, $type='info'){
       return "<div class='alert alert-{$type}' role='alert'>".strtoupper($message)."</div>";

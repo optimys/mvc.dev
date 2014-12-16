@@ -1,15 +1,6 @@
-<form method="post" action="register/newUser" enctype="multipart/form-data" name="register_new">
-    <div class="col-md-12">
-        <?php
-        if(isset($data['error'])){
-            foreach($data['error'] as $error){
-                echo "<h3>Warning {$eroor}</h3>";
-            }
-        }
-        ?>
-    </div>
+<form method="post" action="<?=$data['baseUrl']?>register/newUser" enctype="multipart/form-data" name="register_new">
             <div class="col-md-6">
-                <h3 class="dark-grey">Registration</h3>
+                <h3>Registration</h3>
 
                 <div class="form-group col-lg-6">
                     <label for="login">Username</label>
@@ -17,13 +8,13 @@
                 </div>
 
                 <div class="form-group col-lg-6">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control" id="password" value="">
+                    <label for="email"> Email Address</label>
+                    <input type="email" name="email" class="form-control" id="email" value="">
                 </div>
 
                 <div class="form-group col-lg-6">
-                    <label for="email"> Email Address</label>
-                    <input type="email" name="email" class="form-control" id="email" value="">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" value="">
                 </div>
 
                 <div class="form-group col-lg-6">
