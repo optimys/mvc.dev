@@ -2,11 +2,14 @@
     <div class="container">
         <div class="col-md-6">
             <ul class="nav navbar-nav">
-                <li><a href="<?= $data['baseUrl']; ?>home">home</a></li>
-                <li><a href="<?= $data['baseUrl']; ?>register">registration</a></li>
-                <li><a href="<?= $data['baseUrl']; ?>about">about</a></li>
-                <li><a href="<?= $data['baseUrl']; ?>contacts">contact</a></li>
-                <li><a href="<?= $data['baseUrl']; ?>user">user</a></li>
+                <li><a href="<?=$baseUrl; ?>home">home</a></li>
+                <?if(Session_helper::exist('logged')):?>
+                    <li><a href="<?=$baseUrl; ?>user">user</a></li>
+                    <?else:?>
+                    <li><a href="<?=$baseUrl; ?>register">registration</a></li>
+                <?endif?>
+                <li><a href="<?=$baseUrl; ?>about">about</a></li>
+                <li><a href="<?=$baseUrl; ?>contacts">contact</a></li>
                 <li><a><?=$data['errors'];?></a></li>
             </ul>
         </div>

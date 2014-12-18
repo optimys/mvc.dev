@@ -1,5 +1,5 @@
 <div class="col-md-5">
-    <form class="navbar-form navbar-right" method="post" role="form" action="<?=$data['baseUrl'];?>home/login">
+    <form class="navbar-form navbar-right" method="post" role="form" action="<?=$baseUrl;?>home/login">
         <div class="form-group input-group-sm">
             <input type="email" class="form-control" name="email" placeholder="Email">
         </div>

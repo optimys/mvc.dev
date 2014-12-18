@@ -37,16 +37,11 @@ class Model
         return $this;
     }
 
-    public function insert($table, $keyVal=array())
+    public function insert($table, $colVal=array())
     {
-        $values="";
-        $columns="";
-        foreach($keyVal as $key => $val){
-            $columns .=" {$key}, ";
-            $values  .=" '{$val}', ";
-        }
-        $columns = rtrim($columns, ", ");
-        $values = rtrim($values, ", ");
+        $KeyValSql = $this->fieldValueBuilder($colVal);
+        $columns = $KeyValSql['columns'];
+        $values =  $KeyValSql['values'];
 
         $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
 
@@ -55,8 +50,13 @@ class Model
         return $this;
     }
 
-    public function update($table, $columns, $values, $where = array())
+    public function update($table, $colVal=array(), $where = array())
     {
+        $KeyValSql = $this->fieldValueBuilder($colVal);
+        $columns = $KeyValSql['columns'];
+        $values =  $KeyValSql['values'];
+        $where = $this->whereBuilder($where);
+
         $result = mysql_query("UPDATE {$table} SET $columns = {$values} WHERE {$where}", $this->db);
         $this->result = $result;
         return $this;
@@ -79,6 +79,18 @@ class Model
         return false;
     }
 
+    private function fieldValueBuilder($keyVal=array()){
+        $values="";
+        $columns="";
+        foreach($keyVal as $key => $val){
+            $columns .=" {$key}, ";
+            $values  .=" '{$val}', ";
+        }
+        $columns = rtrim($columns, ", ");
+        $values = rtrim($values, ", ");
+        return array('columns'=>$columns, 'values'=>$values);
+    }
+
     public function first(){
 
         if(!empty($this->result)) {
@@ -87,5 +99,4 @@ class Model
             return false;
         }
     }
-
 } 

@@ -41,9 +41,10 @@ return array(
             'require'   => false
         )
     ),
-    'change-password'=>array(
+    'change_password'=>array(
         'old_password'=>array(
-            'require'   => true
+            'require'   => true,
+            //'match'     => 'password' //Need add this check in Model
         ),
         'new_password'=>array(
             'require'   => true,
@@ -55,7 +56,7 @@ return array(
             'match'     =>'new_password'
         )
     ),
-    'update-user-info'=>array(
+    'update_user_info'=>array(
         'user_info'=>array(
             'require'=>false
         ),

@@ -19,7 +19,9 @@ class User_model extends Model
 
     /**
      * To do
-     * Need insert file type and size checking for avatar
+     * Need add file type and size checking for avatar
+     * Need add hashing password
+     * Need add if inserting is false
      */
     public function newUser()
     {
@@ -61,6 +63,13 @@ class User_model extends Model
     public function getLogged()
     {
         return $this->loggedIn;
+    }
+
+    public function changePassword(){
+        //Need add check for if result is false
+        $result = $this->update('users',
+            array('password'=>Input_helper::get($_POST,'new_password')),
+            array('login', '=', Session_helper::get('logged')['login']));
     }
 
 

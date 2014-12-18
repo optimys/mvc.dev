@@ -15,7 +15,7 @@ class View {
     public  $data = array();
 
     public function __construct(){
-        $this->data['baseUrl'] = "http://".$_SERVER['HTTP_HOST']."/";
+        $this->data['baseUrl'] = "http://{$_SERVER['HTTP_HOST']}/";
     }
 
     public function  setData($data=array()){
@@ -25,6 +25,7 @@ class View {
 
     public function display($page, $blocks=array()){
         $data = $this->data;
+        $baseUrl = $this->data['baseUrl'];
         require_once("/views/layouts/{$page}_tpl.php");
     }
 

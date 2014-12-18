@@ -8,9 +8,8 @@
 class Register_Controller extends Controller{
     public function index(){
         $data['title']="Register page";
-        if(Session_helper::exist('errors')){
+        if($data['errors'] = Session_helper::get('errors')){
             $data['title']="Error while register";
-            $data['errors'] = Session_helper::get('errors');
             Session_helper::remove('errors');
         }
         $register = new View();

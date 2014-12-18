@@ -20,6 +20,11 @@ class Validator_Helper {
         $this->checkForm($_POST);
     }
 
+    /**
+     * @param $type
+     * @return array
+     * TO DO: need to add "check compare" for input field data with data that stores in DB
+     */
     private  function checkForm($type){
         if($this->checkInput()){
             $formSettings = $this->conditions[$this->formType];

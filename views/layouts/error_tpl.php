@@ -21,7 +21,7 @@
         <nav class="navbar navbar-default " role="navigation">
             <div class="container">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?= $data['baseUrl'] ?>home">Go to main page</a></li>
+                    <li><a href="<?= $baseUrl ?>home">Go to main page</a></li>
                 </ul>
             </div>
         </nav>

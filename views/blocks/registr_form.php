@@ -1,4 +1,4 @@
-<form method="post" action="<?=$data['baseUrl']?>register/newUser" enctype="multipart/form-data" name="register_new">
+<form method="post" action="<?=$baseUrl?>register/newUser" enctype="multipart/form-data" name="register_new">
             <div class="col-md-6">
                 <h3>Registration</h3>
 
