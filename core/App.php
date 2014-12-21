@@ -14,9 +14,9 @@
 class App
 {
     private $path;
-    static $postfix = "_controller";
+    static $postfix = "_c";
     private $method = "index";
-    private $controller = "Home_controller";
+    private $controller = "Home_c";
 
     public static function getNewApp()
     {

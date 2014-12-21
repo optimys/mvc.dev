@@ -22,12 +22,3 @@
         </div>
     </div>
 </form>
-<!--<div class="col-md-6">-->
-<!--    --><?php
-//        if($data['errors']){
-//            foreach($data['errors'] as $error){
-//                echo $error;
-//            }
-//        }
-//    ?>
-<!--</div>-->

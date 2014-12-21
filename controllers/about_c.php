@@ -5,7 +5,7 @@
  * Date: 03.12.2014
  * Time: 0:15
  */
-class About_Controller extends Controller{
+class About_C extends Controller{
     public function index($name = "Alex"){
         $data['title']="About page";
         $about = new View();

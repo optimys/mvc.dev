@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <ul class="nav navbar-nav">
                 <li><a href="<?=$baseUrl; ?>home">home</a></li>
-                <?if(Session_helper::exist('logged')):?>
+                <?if(Session_h::exist('logged')):?>
                     <li><a href="<?=$baseUrl; ?>user">user</a></li>
                     <?else:?>
                     <li><a href="<?=$baseUrl; ?>register">registration</a></li>
@@ -14,7 +14,7 @@
             </ul>
         </div>
         <?php
-            if(Session_helper::exist('logged')){
+            if(Session_h::exist('logged')){
                 require_once('nav_profile_info.php');
             }else{
                 require_once('login_form.php');

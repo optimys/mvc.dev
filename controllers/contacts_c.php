@@ -6,7 +6,7 @@
  * Time: 1:34
  */
 
-class contacts_controller extends Controller {
+class Contacts_c extends Controller {
     public function index(){
         $data=array();
         $data['title']="Contact page";

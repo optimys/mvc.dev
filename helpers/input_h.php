@@ -6,12 +6,12 @@
  * Time: 2:20
  */
 
-class Input_helper {
+class Input_h {
     public static function get($type, $field){
         if(isset($type[$field])){
             return $type[$field];
         }else{
-            return Info_helper::getLabel("no such input",'danger');
+            return Info_h::getLabel("no such input",'danger');
         }
     }
 } 

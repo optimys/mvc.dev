@@ -6,7 +6,7 @@
  * Time: 3:58
  */
 
-class Redirect_helper {
+class Redirect_h {
     public static  function redirect($direction){
         header("Location: http://{$_SERVER['HTTP_HOST']}/{$direction}/");
     }

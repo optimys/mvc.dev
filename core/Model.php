@@ -8,7 +8,7 @@
  */
 class Model
 {
-    private $db;
+    protected $db;
     private  $result = array();
 
     public function __construct()
@@ -52,12 +52,14 @@ class Model
 
     public function update($table, $colVal=array(), $where = array())
     {
-        $KeyValSql = $this->fieldValueBuilder($colVal);
-        $columns = $KeyValSql['columns'];
-        $values =  $KeyValSql['values'];
+        $newStates = "";
+        foreach($colVal as $col=>$val){
+            $newStates .= "`{$col}` = '{$val}', ";
+        }
+        $newStates = rtrim($newStates, ", ");
         $where = $this->whereBuilder($where);
-
-        $result = mysql_query("UPDATE {$table} SET $columns = {$values} WHERE {$where}", $this->db);
+        $query = "UPDATE {$table} SET {$newStates} WHERE {$where}";
+        $result = mysql_query($query, $this->db);
         $this->result = $result;
         return $this;
     }
@@ -74,7 +76,7 @@ class Model
         //$where[0]=field, $where[1]=operator, $where[2]=value
         $operators = array('<', '>', '<=', '>=', '=');
         if (in_array($where[1], $operators)) {
-            return " {$where[0]} {$where[1]} \"{$where[2]}\" ";
+            return " `{$where[0]}` {$where[1]} \"{$where[2]}\" ";
         }
         return false;
     }

@@ -6,7 +6,7 @@
  * Date: 14.12.2014
  * Time: 4:09
  */
-class Session_helper
+class Session_h
 {
     public static function set($name, $value){
         $_SESSION[$name] = $value;

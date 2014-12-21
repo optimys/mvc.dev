@@ -6,7 +6,7 @@
  * Time: 0:28
  */
 
-class Validator_Helper {
+class Validator_h {
     private $error = array();
     private $conditions =array();
     private $formType;
@@ -14,7 +14,7 @@ class Validator_Helper {
 
     public function __construct(){
         //Load all conditions for login/register/change/etc...
-        $this->conditions = require_once('valid_conditions.php');
+        $this->conditions = require_once('validForm_h.php');
         $this->formType = explode("/",$_GET['url'])[1];
         $this->dbRequest = new Model();
         $this->checkForm($_POST);
@@ -30,7 +30,7 @@ class Validator_Helper {
             $formSettings = $this->conditions[$this->formType];
             foreach($formSettings as $field => $rules){
                 foreach($rules as $rule => $ruleValue) {
-                    $inputValue = Input_helper::get($type,$field);
+                    $inputValue = Input_h::get($type,$field);
                     switch ($rule) {
                         case 'min':
                             (strlen($inputValue) < $ruleValue) ? $this->setError("Minimum {$ruleValue} for {$field} field") : true;
@@ -39,7 +39,7 @@ class Validator_Helper {
                             (strlen($inputValue) > $ruleValue) ? $this->setError("Maximum {$ruleValue} for {$field} field") : true ;
                             break;
                         case 'match':
-                            ($inputValue === Input_helper::get($type, $ruleValue)) ? true : $this->setError("{$field} must match {$ruleValue}");
+                            ($inputValue === Input_h::get($type, $ruleValue)) ? true : $this->setError("{$field} must match {$ruleValue}");
                             break;
                         case 'require':
                             ($ruleValue && empty($inputValue)) ? $this->setError("{$field} is required") : true;
@@ -74,7 +74,7 @@ class Validator_Helper {
     }
 
     private  function setError($message){
-        $message = Info_helper::getLabel($message, 'warning');
+        $message = Info_h::getLabel($message, 'warning');
         $this->error[] = $message;
     }
 
