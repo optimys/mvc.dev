@@ -26,7 +26,7 @@ class Validator_h {
      * TO DO: need to add "check compare" for input field data with data that stores in DB
      */
     private  function checkForm($type){
-        if($this->checkInput()){
+        if($this->checkInput($type)){
             $formSettings = $this->conditions[$this->formType];
             foreach($formSettings as $field => $rules){
                 foreach($rules as $rule => $ruleValue) {
@@ -65,12 +65,8 @@ class Validator_h {
      *
      * @return bool|string
      */
-    private function checkInput(){
-        if(!empty($_POST )){
-            return true;
-        }else{
-            return false;
-        }
+    private function checkInput($type){
+        return empty($type) ? false : true;
     }
 
     private  function setError($message){
@@ -79,11 +75,11 @@ class Validator_h {
     }
 
     public function getError(){
-        if(!empty($this->error)){
-            return $this->error;
-        }else{
-            return false;
-        }
+        return $this->error;
+    }
+
+    public function isValid(){
+        return empty($this->error) ? true : false;
     }
 
 } 

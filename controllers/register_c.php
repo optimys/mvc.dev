@@ -20,12 +20,9 @@ class Register_C extends Controller{
     public function newUser(){
         $model = new User_m();
 
-        if(!$model->getErrors()){
-            $model->newUser();
-            Session_h::set('success', Info_h::getBeckGroundParagraph("You registered success!","success"));
+        if($model->newUser()){
             Redirect_h::redirect('home');
         }else{
-            Session_h::set('errors',$model->getErrors());
             Redirect_h::redirect('register');
         }
     }

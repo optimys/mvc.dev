@@ -28,8 +28,9 @@ class Model
         $query = "SELECT * FROM {$table} WHERE {$where}";
 
         $result = mysql_query($query, $this->db);
+
         if($result) {
-            while ($row = mysql_fetch_assoc($result)) {
+            while ($row = mysql_fetch_object($result)) {
                 $this->result[] = $row;
             }
         }

@@ -12,21 +12,18 @@ class User_C extends Controller{
             Session_h::remove('success');
         }
         $data['title']="Users page";
-        $user = new View();
-        $user->setData($data);
-        $user->display('main',array('page_header','user_profile'));
+        $view = new View();
+        $view->setData($data);
+        $view->display('main',array('page_header','user_profile'));
     }
 
     public function change_password($action){
         $data['title'] = "Change your password here";
         if($action) {
             $model = new User_m();
-            if(!$errors = $model->getErrors()){
-                $model->changePassword();//Add check if updating is false
-                Session_h::set('success', Info_h::getLabel('Password changed', 'success'));
+            if($model->changePassword()){
                 Redirect_h::redirect('user');
-            }else{
-                $data['errors']=$errors;
+                return;
             }
         }
         $view = new View();
@@ -49,6 +46,18 @@ class User_C extends Controller{
         $view = new View();
         $view->setData($data);
         $view->display('main',array('page_header','error_list','update_form'));
+    }
+
+    public function login(){
+        $login = new User_m();
+        $login->login();
+        Redirect_h::redirect('home');
+    }
+
+    public function logout(){
+        Session_h::remove('logged');
+        session_destroy();
+        Redirect_h::redirect('home');
     }
 
 }

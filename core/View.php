@@ -24,7 +24,6 @@ class View {
     }
 
     public function display($page, $blocks=array()){
-        $data = $this->data;
         $baseUrl = $this->data['baseUrl'];
         require_once("/views/layouts/{$page}_tpl.php");
     }
