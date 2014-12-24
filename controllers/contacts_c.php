@@ -15,7 +15,7 @@ class Contacts_c extends Controller {
         $contact->display('main',array(
             'page_header',
             'contact_form',
-            'panel'));
+            'panel'), $this->model);
     }
 
 } 

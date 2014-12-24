@@ -10,7 +10,7 @@ class About_C extends Controller{
         $data['title']="About page";
         $about = new View();
         $about->setData($data);
-        $about->display('main',array('page_header','list_group', 'panel'));
+        $about->display('main',array('page_header','list_group', 'panel'), $this->model);
     }
 
 

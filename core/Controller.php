@@ -11,6 +11,15 @@
  * This is base class for all controllers
  */
 abstract class Controller {
+
+    protected $view;
+    protected $model;
+
+    public function __construct(){
+        $this->view = new View();
+        $this->model= new User_m();
+    }
+
     public  function __call($name, $args){
         $data['errors'] = Info_h::getParagraph("No such method",'warning');
         $error = new View();

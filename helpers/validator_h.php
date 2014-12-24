@@ -17,7 +17,6 @@ class Validator_h {
         $this->conditions = require_once('validForm_h.php');
         $this->formType = explode("/",$_GET['url'])[1];
         $this->dbRequest = new Model();
-        $this->checkForm($_POST);
     }
 
     /**
@@ -79,6 +78,7 @@ class Validator_h {
     }
 
     public function isValid(){
+        $this->checkForm($_POST);
         return empty($this->error) ? true : false;
     }
 

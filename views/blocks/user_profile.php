@@ -2,14 +2,14 @@
     <div class="well well-sm">
         <div class="row">
             <div class="col-sm-6 col-md-4">
-                <img src="<?= $baseUrl.Session_h::get('logged')['avatar_url']; ?>" alt="avatar"
+                <img src="<?= $baseUrl.$user->getInfo('avatar_url')?>" alt="avatar"
                      class="img-rounded img-responsive "/>
             </div>
             <div class="col-sm-6 col-md-8">
-                <h4><?= Session_h::get('logged')['name']; ?></h4>
+                <h4><?= $user->getInfo('name'); ?></h4>
                 <p>
                     <i class="fa fa-envelope"></i>
-                    <?= Session_h::get('logged')['email']; ?>
+                    <?= $user->getInfo('email'); ?>
                 </p>
                     <!-- Split button -->
                 <div class="btn-group">
