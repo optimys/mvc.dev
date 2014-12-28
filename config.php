@@ -1,12 +1,28 @@
 <?php
 session_start();
-const BASEURL = "http//mvc/";
-require_once('core/init.php');
 
-spl_autoload_register(function($class){
+require_once('core/init.php');
+require_once('vendor/autoload.php');
+
+$GLOBALS['config'] = array(
+    'baseUrl' => 'http://mvc.dev/',
+    'mysql'=>array(
+        'user' => 'root',
+        'db'=>'mvcdev',
+        'host'=>'localhost',
+        'password'=>""
+    ),
+    'sessionNames' => array(
+        'errors', 'info', 'logged'
+    ),
+
+);
+
+
+spl_autoload_register(function ($class) {
     $class = strtolower($class);
     $baseDir = __DIR__ . DIRECTORY_SEPARATOR;
-    switch(explode("_", $class)[1]){
+    switch (explode("_", $class)[1]) {
         case "c":
             $folder = "controllers";
             break;
@@ -21,6 +37,6 @@ spl_autoload_register(function($class){
             break;
     }
 
-    require_once( "{$baseDir}{$folder}".DIRECTORY_SEPARATOR.$class.".php");
+    require_once("{$baseDir}{$folder}" . DIRECTORY_SEPARATOR . $class . ".php");
 });
 

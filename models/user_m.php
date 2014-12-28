@@ -30,35 +30,37 @@ class User_m extends Model
      */
     public function newUser()
     {
-        $validatorObject = new Validator_H();
-        if ($validatorObject->isValid()) {
-            $this->insert('users', array(
-                'login' => Input_h::get('login'),
-                'password' => Input_h::get('password'),
-                'email' => Input_h::get('email'),
-                'avatar_url' => FileUpload_m::getPathToFile('avatar'),
-                'user_info' => Input_h::get('about')
-            ));
-            Session_h::set('success', Info_h::getLabel("You registered success!", "success"));
+        if ($this->validatorObject->isValid()) {
+            $this->insert('users', $this->getFilled());
+            Session_h::flash('info', Info_h::getLabel("You registered success!", "success"));
             return true;
-        } else {
-            Session_h::set('errors', $validatorObject->getError());
-            return false;
         }
+        return false;
     }
 
     public function updateUserInfo()
     {
-        if (isset($_FILES['avatar'])) {
-            $this->userAvatar .= $this->get('users', array('id', '=', Session_h::get('id')));
-            copy($_FILES['avatar']['tmp_name'], $this->userAvatar);
+        if ($this->validatorObject->isValid()) {
+            $this->update('users', $this->getFilled(), array('id', '=', Session_h::get('logged')));
+            Session_h::flash('info', Info_h::getLabel('Info has been updated', 'info'));
+            return true;
         }
-        //To do: Check if No data was input!
-        $this->update('users', array(
-            'name' => Input_h::get('name'),
-            'avatar_url' => $this->userAvatar,
-            'user_info' => Input_h::get('about')
-        ), array('login', '=', Session_h::get('logged')['login']));
+        return false;
+    }
+
+    private function getFilled()
+    {
+        $filled = array();
+        foreach ($_POST as $key => $value) {
+            if (!empty($value)) {
+                $filled[$key] = $value;
+            }
+        }
+        if (is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+            $filled["avatar_url"] = FileUpload_m::getPathToAvatar('avatar');
+        }
+        return $filled;
+
     }
 
     public function login()
@@ -72,11 +74,11 @@ class User_m extends Model
                 Session_h::set('logged', $result->id);
                 $this->loggedIn = true;
                 $this->userDataObject = $result;
-                return;
+                return true;
             }
         }
-        Session_h::set('errors', Info_h::getLabel("Login wasted", 'danger'));
-        return;
+        Session_h::flash('info', Info_h::getLabel("Login wasted", 'danger'));
+        return false;
     }
 
     public function getLogged()
@@ -91,32 +93,24 @@ class User_m extends Model
                 array('password' => Input_h::get('new_password')),
                 array('login', '=', $this->userDataObject->login));
             if ($result) {
-                $this->setFlash("Password Changed", "success");
+                Session_h::flash("info", "Password Changed");
                 return true;
             } else {
-                $this->setFlash('Update password wasted');
+                Session_h::flash('info', "Update password wasted");
             }
-        } else {
-            Session_h::set('errors', $this->validatorObject->getError());
         }
         return false;
     }
 
     public function getInfo($field)
     {
-
-//        if(property_exists($this->userDataObject, $this->userDataObject->$field)){
-//            return $this->allData->$field;
-//        }else{
-//            echo "Wrong parameter!";
-//        }
-//        return false;
-        return $this->userDataObject->$field;
+        if (!is_null($this->userDataObject->$field)) {
+            return $this->userDataObject->$field;
+        } else {
+            echo "no data";
+        }
+        return false;
     }
 
-    private function setFlash($text, $level = "danger")
-    {
-        Session_h::set('errors', Info_h::getLabel($text, $level));
-    }
 
 }

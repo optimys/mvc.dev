@@ -10,15 +10,6 @@ class Home_C extends Controller
 {
     public function index()
     {
-        if (Session_h::exist('success')) {
-            $data['info'] = Session_h::get('success');
-            Session_h::remove('success');
-
-        } elseif (Session_h::exist('errors')) {
-            $data['errors'] = Session_h::get('errors');
-            Session_h::remove('errors');
-        }
-
         $this->view->display('main', array('jumbotron'), $this->model);
     }
 

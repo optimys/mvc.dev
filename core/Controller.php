@@ -29,7 +29,7 @@ abstract class Controller {
     public  function index(){
         $data = "This is default method ".__METHOD__;
         $home = new View();
-        $home->setData($data)->display('main');
+        $home->setData($data)->display('main',$data, $this->model);
 
     }
 } 

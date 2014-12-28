@@ -6,11 +6,10 @@ require_once('config.php');
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    <link type="test/css" rel="stylesheet"
-          href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
-    <link type="text/css" href="<?=$baseUrl?>css/style.css" rel="stylesheet" />
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link type="text/css" href="<?=Config_h::get('baseUrl')?>bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link type="text/css" href="<?=Config_h::get('baseUrl')?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link type="text/css" href="<?=Config_h::get('baseUrl')?>bower_components/jquery-ui/themes/dark-hive/jquery-ui.min.css" rel="stylesheet"/>
+    <link type="text/css" href="<?=Config_h::get('baseUrl')?>css/style.css" rel="stylesheet" rel="stylesheet"/>
 
 </head>
 <body>
@@ -26,7 +25,8 @@ require_once('config.php');
     ?>
 
 </div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=Config_h::get('baseUrl')?>bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="<?=Config_h::get('baseUrl')?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=Config_h::get('baseUrl')?>bower_components/jquery-ui/jquery-ui.min.js"></script>
 </body>
 </html>

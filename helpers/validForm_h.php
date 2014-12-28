@@ -28,7 +28,8 @@ return array(
         ),
         'password_again'=>array(
             'require'   => true,
-            'match'     =>'password'
+            'match'     =>'password',
+            'helper'    => true
         ),
         'email'=>array(
             'require'   => true,
@@ -53,7 +54,8 @@ return array(
         ),
         'new_password_again'=>array(
             'require'   => true,
-            'match'     =>'new_password'
+            'match'     =>'new_password',
+            'helper'    => true
         )
     ),
     'update_user_info'=>array(

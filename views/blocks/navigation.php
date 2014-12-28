@@ -2,15 +2,15 @@
     <div class="container">
         <div class="col-md-6">
             <ul class="nav navbar-nav">
-                <li><a href="<?=$baseUrl; ?>home">home</a></li>
+                <li><a href="<?=Config_h::get('baseUrl') ?>home">home</a></li>
                 <?if(Session_h::exist('logged')):?>
-                    <li><a href="<?=$baseUrl; ?>user">user</a></li>
+                    <li><a href="<?=Config_h::get('baseUrl'); ?>user">user</a></li>
                     <?else:?>
-                    <li><a href="<?=$baseUrl; ?>register">registration</a></li>
+                    <li><a href="<?=Config_h::get('baseUrl'); ?>register">registration</a></li>
                 <?endif?>
-                <li><a href="<?=$baseUrl; ?>about">about</a></li>
-                <li><a href="<?=$baseUrl; ?>contacts">contact</a></li>
-                <li><a><?=$data['errors'];?></a></li>
+                <li><a href="<?=Config_h::get('baseUrl'); ?>about">about</a></li>
+                <li><a href="<?=Config_h::get('baseUrl'); ?>contacts">contact</a></li>
+                <li><a></a></li>
             </ul>
         </div>
         <?php

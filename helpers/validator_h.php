@@ -29,7 +29,7 @@ class Validator_h {
             $formSettings = $this->conditions[$this->formType];
             foreach($formSettings as $field => $rules){
                 foreach($rules as $rule => $ruleValue) {
-                    $inputValue = Input_h::get($type,$field);
+                    $inputValue = Input_h::get($field);
                     switch ($rule) {
                         case 'min':
                             (strlen($inputValue) < $ruleValue) ? $this->setError("Minimum {$ruleValue} for {$field} field") : true;
@@ -38,14 +38,17 @@ class Validator_h {
                             (strlen($inputValue) > $ruleValue) ? $this->setError("Maximum {$ruleValue} for {$field} field") : true ;
                             break;
                         case 'match':
-                            ($inputValue === Input_h::get($type, $ruleValue)) ? true : $this->setError("{$field} must match {$ruleValue}");
+                            ($inputValue === Input_h::get($ruleValue)) ? true : $this->setError("{$field} must match {$ruleValue}");
                             break;
                         case 'require':
-                            ($ruleValue && empty($inputValue)) ? $this->setError("{$field} is required") : true;
+                            ($ruleValue && empty($inputValue)) ? $this->setError("{$field} is required {$inputValue}") : true;
                             break;
                         case 'unique':
                             $check = $this->dbRequest->get("users", array($field, "=", $inputValue))->first();
                             ($check) ? $this->setError("Value of {$field} must be unique") : true ;
+                            break;
+                        case 'helper':
+                            unset($_POST[$field]);
                             break;
                         default:
                             break;
@@ -79,7 +82,12 @@ class Validator_h {
 
     public function isValid(){
         $this->checkForm($_POST);
-        return empty($this->error) ? true : false;
+        if (empty($this->error)){
+            return true;
+        }
+        Session_h::set('info', $this->error);
+        //dump(Session_h::get('info'));
+        return false;
     }
 
 } 

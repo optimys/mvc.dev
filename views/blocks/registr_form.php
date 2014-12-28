@@ -1,4 +1,4 @@
-<form method="post" action="<?=$baseUrl?>register/newUser" enctype="multipart/form-data" name="register_new">
+<form method="post" action="<?=Config_h::get('baseUrl')?>register/newUser" enctype="multipart/form-data" name="register_new">
             <div class="col-md-6">
                 <h3>Registration</h3>
 
@@ -36,6 +36,7 @@
 
             <div class="col-md-6">
                 <h3 class="dark-grey">About you</h3>
-                <textarea type="text" name="about" class="form-control" id="about" cols="50" rows="9"></textarea>
+                <textarea  name="user_info" class="form-control" id="about" cols="50" rows="9"></textarea>
             </div>
+            <input type="hidden" value="<?=date("Y-m-d H:i:s")?>" name="date_register"/>
 </form>

@@ -23,4 +23,19 @@ class Session_h
     public static function remove($name){
         unset($_SESSION[$name]);
     }
+
+    public static function flash($name, $text=null)
+    {
+        if (self::exist($name)) {
+            $info = self::get($name);
+            self::remove($name);
+            return $info;
+        }elseif(!is_null($text)) {
+            self::set($name, $text);
+            return false;
+        }
+        return false;
+    }
+
+
 } 

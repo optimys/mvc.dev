@@ -1,4 +1,4 @@
-<form method="post" action="<?=$baseUrl?>user/change_password/change" name="new_pass">
+<form method="post" action="<?=Config_h::get('baseUrl')?>user/change_password/change" name="new_pass">
     <div class="col-md-6">
         <h3>New password</h3>
 

@@ -9,13 +9,13 @@
 class Model
 {
     protected $db;
-    private  $result = array();
+    protected  $result = array();
 
     public function __construct()
     {
         try {
-            $this->db = mysql_connect('localhost', 'root', '');
-            mysql_select_db('mvcdev', $this->db);
+            $this->db = mysql_connect(Config_h::get('host'), Config_h::get('user'), Config_h::get('password'));
+            mysql_select_db(Config_h::get('db'), $this->db);
         } catch (Exception $e) {
             die("Can't connect to DB");
         }
