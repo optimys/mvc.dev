@@ -4,21 +4,6 @@ session_start();
 require_once('core/init.php');
 require_once('vendor/autoload.php');
 
-$GLOBALS['config'] = array(
-    'baseUrl' => 'http://mvc.dev/',
-    'mysql'=>array(
-        'user' => 'root',
-        'db'=>'mvcdev',
-        'host'=>'localhost',
-        'password'=>""
-    ),
-    'sessionNames' => array(
-        'errors', 'info', 'logged'
-    ),
-
-);
-
-
 spl_autoload_register(function ($class) {
     $class = strtolower($class);
     $baseDir = __DIR__ . DIRECTORY_SEPARATOR;
@@ -40,3 +25,7 @@ spl_autoload_register(function ($class) {
     require_once("{$baseDir}{$folder}" . DIRECTORY_SEPARATOR . $class . ".php");
 });
 
+if(!Session_h::exist('logged') && Cookie_h::isCookieSet('remember')){
+    $user = new User_m();
+    $user->login();
+}

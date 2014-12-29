@@ -67,7 +67,9 @@ class Model
 
     public function delete($table, $where = array())
     {
-        $result = mysql_query("DELETE * FROM {table} WHERE {$where}", $this->db);
+        $where = $this->whereBuilder($where);
+        $query = "DELETE FROM {$table} WHERE {$where}";
+        $result = mysql_query($query, $this->db);
         $this->result = $result;
         return $this;
     }

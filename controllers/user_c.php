@@ -35,7 +35,7 @@ class User_C extends Controller{
     }
 
     public function logout(){
-        session_destroy();
+        $this->model->logOut();
         Redirect_h::redirect('home');
     }
 

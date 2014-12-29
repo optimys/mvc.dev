@@ -10,6 +10,7 @@ class Home_C extends Controller
 {
     public function index()
     {
+
         $this->view->display('main', array('jumbotron'), $this->model);
     }
 

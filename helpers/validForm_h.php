@@ -12,6 +12,9 @@ return array(
             'require'   => true,
             'min'       => 6,
             'max'       => 30
+        ),
+        'remember'=> array(
+            'require'   => false,
         )
     ),
     'newUser'=>array(
@@ -39,6 +42,9 @@ return array(
             'require'   => false
         ),
         'about'=>array(
+            'require'   => false
+        ),
+        'name' =>array(
             'require'   => false
         )
     ),

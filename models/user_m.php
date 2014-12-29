@@ -65,20 +65,41 @@ class User_m extends Model
 
     public function login()
     {
-        $typedEmail = Input_h::get('email');
-        $typedPass = Input_h::get('password');
+        if(!empty($_POST)) {
+            // when user manually login
+            $typedEmail = Input_h::get('email');
+            $typedPass = Input_h::get('password');
+            $remember = Input_h::get('remember');
 
-        $result = $this->get('users', array('email', '=', $typedEmail))->first();
-        if ($result) {
-            if ($result->password === $typedPass) {
-                Session_h::set('logged', $result->id);
-                $this->loggedIn = true;
-                $this->userDataObject = $result;
-                return true;
+            $resultObject = $this->get('users', array('email', '=', $typedEmail))->first();
+            if ($resultObject) {
+                if ($resultObject->password === $typedPass) {
+                    Session_h::set('logged', $resultObject->id);
+                    $this->loggedIn = true;
+                    $this->userDataObject = $resultObject;
+                    if ($remember) {
+                        $hash = Hash_h::hash();
+                        $this->insert('session', array('id' => $this->userDataObject->id, 'hash' => $hash));
+                        Cookie_h::setCookie('remember', $hash);
+                    }
+                    return true;
+                }
             }
+            Session_h::flash('info', Info_h::getLabel("Login wasted", 'danger'));
+            return false;
+            //END
+        }else{
+            $sessionObjects = $this->get('session', array('hash', '=', Cookie_h::getCookie('remember')));
+            $sessionObject = $sessionObjects->first();
+            Session_h::set("logged",$sessionObject->id);
+            $this->loggedIn = true;
         }
-        Session_h::flash('info', Info_h::getLabel("Login wasted", 'danger'));
-        return false;
+    }
+
+    public function logOut(){
+        Cookie_h::unSetCookie('remember');
+        $this->delete('session',array('id',"=",$this->userDataObject->id));
+        session_destroy();
     }
 
     public function getLogged()
@@ -89,10 +110,10 @@ class User_m extends Model
     public function changePassword()
     {
         if ($this->validatorObject->isValid()) {
-            $result = $this->update('users',
+            $resultObject = $this->update('users',
                 array('password' => Input_h::get('new_password')),
                 array('login', '=', $this->userDataObject->login));
-            if ($result) {
+            if ($resultObject) {
                 Session_h::flash("info", "Password Changed");
                 return true;
             } else {
