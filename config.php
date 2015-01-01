@@ -2,7 +2,6 @@
 session_start();
 
 require_once('core/init.php');
-require_once('vendor/autoload.php');
 
 spl_autoload_register(function ($class) {
     $class = strtolower($class);
