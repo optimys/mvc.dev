@@ -1,27 +1,39 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: Alex
- * Date: 03.12.2014
- * Time: 1:18
+ * This is test file
  */
 
 /**
- * Class App
- * This is Router
+ * Info about class
+ *
+ * This class is for  Routing system
+ * and to provide some background information or textual references.
  */
 class App
 {
-    private $path;
+    /**
+     * Postfix that added when consructing
+     * @property string $postfix
+     */
     static $postfix = "_c";
+    /**
+     * Contain full address from url
+     * @property string $path
+     */
+    private $path;
+    /**
+     * Default method of controller
+     * @property string $method
+     *
+     */
     private $method = "index";
-    private $controller = "Home_c";
 
-    public static function getNewApp()
-    {
-        return new App();
-    }
+    /**
+     * Default controller
+     * @property string $controller
+     *
+     */
+    private $controller = "Home_c";
 
     private function __construct()
     {
@@ -29,6 +41,10 @@ class App
         $this->getRouter();
     }
 
+    /**
+     * For getting Router
+     * @return object of object execute function
+     */
     public function getRouter()
     {
         $parts = explode("/", $this->path);
@@ -47,15 +63,33 @@ class App
         return $object->$objectMethod();
     }
 
+    /**
+     * Check if Controller is exists
+     * @param $controller string
+     * @return bool
+     */
     private function controllerExist($controller)
     {
         $controller = ucfirst($controller . self::$postfix);
-        if(file_exists("controllers/{$controller}.php")) {
+        if (file_exists("controllers/{$controller}.php")) {
             $this->controller = new $controller;
             return true;
-        } else{
+        } else {
             return false;
         }
+    }
+
+    /**
+     * For getting new instance of app
+     *
+     * A *description*, that can span multiple lines, to go _in-depth_ into the details of this element
+     * and to provide some background information or textual references.
+     *
+     * @return object of App
+     */
+    public static function getNewApp()
+    {
+        return new App();
     }
 
 
