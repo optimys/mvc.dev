@@ -4,40 +4,34 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "de083a82d9d29212aa7e3fe858307883",
+    "hash": "74b0732f8bb39f973f71795b38a24530",
     "packages": [
         {
             "name": "facebook/php-sdk-v4",
-            "version": "dev-master",
+            "version": "4.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
-                "reference": "e953d97eec30a67958565d37b7f82233c92164e8"
+                "reference": "566c4ea8df82ba8bdd18abf5c0b66c23fe79b3e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/e953d97eec30a67958565d37b7f82233c92164e8",
-                "reference": "e953d97eec30a67958565d37b7f82233c92164e8",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/566c4ea8df82ba8bdd18abf5c0b66c23fe79b3e9",
+                "reference": "566c4ea8df82ba8bdd18abf5c0b66c23fe79b3e9",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "guzzlehttp/guzzle": "~5.0",
-                "mockery/mockery": "~0.8",
-                "phpunit/phpunit": "~4.0"
+                "guzzlehttp/guzzle": "~4.0",
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "3.7.*"
             },
             "suggest": {
                 "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Facebook\\": "src/Facebook/"
@@ -59,7 +53,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2014-12-29 22:41:08"
+            "time": "2014-12-29 22:43:17"
         },
         {
             "name": "symfony/var-dumper",
@@ -118,10 +112,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "facebook/php-sdk-v4": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
 }
