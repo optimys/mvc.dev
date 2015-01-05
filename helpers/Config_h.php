@@ -38,4 +38,8 @@ class Config_h
         });
         return $value;
     }
+
+    public static function getList($source){
+        return self::$config[$source];
+    }
 }
