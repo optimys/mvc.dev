@@ -6,6 +6,8 @@
  * Date: 03.12.2014
  * Time: 0:15
  */
+use \Facebook as Fb;
+
 class Home_C extends Controller
 {
     public function index()

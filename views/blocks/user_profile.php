@@ -2,7 +2,7 @@
     <div class="well well-sm">
         <div class="row">
             <div class="col-sm-6 col-md-4">
-                <img src="<?= Config_h::get('baseUrl') . $user->getInfo('avatar_url') ?>" alt="avatar"
+                <img src="<?=$user->getInfo('avatar_url') ?>" alt="avatar"
                      class="img-rounded img-responsive "/>
             </div>
             <div class="col-sm-6 col-md-8">

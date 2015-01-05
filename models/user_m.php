@@ -6,6 +6,7 @@
  * Date: 03.12.2014
  * Time: 0:23
  */
+use \Facebook as FB;
 class User_m extends Model
 {
     private $validatorObject;
@@ -16,10 +17,11 @@ class User_m extends Model
     {
         parent::__construct();
         if (Session_h::exist('logged')) {
-            $this->userDataObject = $this->get('users', array('id', '=', Session_h::get('logged')))->first();
-            $this->loggedIn = true;
+            $table =  (Session_h::exist('facebook')) ? 'facebook_users' : 'users';
+            $this->userDataObject = $this->get($table, array('id', '=', Session_h::get('logged')))->first();
         }
         $this->validatorObject = new Validator_h();
+        $this->fbObject = new Social_h();
     }
 
     /**
@@ -36,6 +38,13 @@ class User_m extends Model
             return true;
         }
         return false;
+    }
+
+    private function newSocialUser($fields=array()){
+        $fields["avatar_url"]=$this->fbObject->getFbPhoto();
+        if($this->insert('facebook_users',$fields)){
+            return $fields['id'];
+        }
     }
 
     public function updateUserInfo()
@@ -60,41 +69,65 @@ class User_m extends Model
             $filled["avatar_url"] = FileUpload_m::getPathToAvatar('avatar');
         }
         return $filled;
-
     }
 
     public function login()
     {
         if(!empty($_POST)) {
             // when user manually login
-            $typedEmail = Input_h::get('email');
-            $typedPass = Input_h::get('password');
-            $remember = Input_h::get('remember');
-
-            $resultObject = $this->get('users', array('email', '=', $typedEmail))->first();
-            if ($resultObject) {
-                if ($resultObject->password === $typedPass) {
-                    Session_h::set('logged', $resultObject->id);
-                    $this->loggedIn = true;
-                    $this->userDataObject = $resultObject;
-                    if ($remember) {
-                        $hash = Hash_h::hash();
-                        $this->insert('session', array('id' => $this->userDataObject->id, 'hash' => $hash));
-                        Cookie_h::setCookie('remember', $hash);
-                    }
-                    return true;
-                }
-            }
-            Session_h::flash('info', Info_h::getLabel("Login wasted", 'danger'));
-            return false;
-            //END
+           $this->loginManually();
+        }elseif(Session_h::exist('facebook')){
+                //user login by Social network
+            $this->loginBySocial();
         }else{
-            $sessionObjects = $this->get('session', array('hash', '=', Cookie_h::getCookie('remember')));
-            $sessionObject = $sessionObjects->first();
-            Session_h::set("logged",$sessionObject->id);
+            //when user checked RememberMe checkbox
+           $this->loginRememberMe();
+        }
+    }
+
+    private function loginManually(){
+        $typedEmail = Input_h::get('email');
+        $typedPass = Input_h::get('password');
+        $remember = Input_h::get('remember');
+
+        $resultObject = $this->get('users', array('email', '=', $typedEmail))->first();
+        if ($resultObject) {
+            if ($resultObject->password === $typedPass) {
+                Session_h::set('logged', $resultObject->id);
+                $this->loggedIn = true;
+                $this->userDataObject = $resultObject;
+                if ($remember) {
+                    $hash = Hash_h::hash();
+                    $this->insert('session', array('id' => $this->userDataObject->id, 'hash' => $hash));
+                    Cookie_h::setCookie('remember', $hash);
+                }
+                return true;
+            }
+        }
+        Session_h::flash('info', Info_h::getLabel("Login wasted", 'danger'));
+        return false;
+    }
+
+    private function loginRememberMe(){
+        $sessionObjects = $this->get('session', array('hash', '=', Cookie_h::getCookie('remember')));
+        $sessionObject = $sessionObjects->first();
+        Session_h::set("logged",$sessionObject->id);
+        $this->loggedIn = true;
+    }
+
+    private function loginBySocial(){
+        $fbId = $this->fbObject->getFbProfile()['id'];
+        $result = $this->get('facebook_users',array('id','=',$fbId))->first();
+        if($result){
+            Session_h::set("logged",$result['id']);
+            $this->loggedIn = true;
+        }else{
+            $newUserId = $this->newSocialUser($this->fbObject->getFbProfile());
+            Session_h::set("logged",$newUserId);
             $this->loggedIn = true;
         }
     }
+
 
     public function logOut(){
         Cookie_h::unSetCookie('remember');
@@ -131,6 +164,22 @@ class User_m extends Model
             echo "no data";
         }
         return false;
+    }
+
+    public function getLoginUrl($source){
+        switch($source){
+            case "facebook":
+                return $this->fbObject->getFbLoginUrl();
+            break;
+
+            default:
+                return false;
+            break;
+        }
+    }
+
+    public function getSocPhoto(){
+        return $this->fbObject->getFbPhoto();
     }
 
 

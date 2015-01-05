@@ -19,6 +19,12 @@ class Config_h
         'sessionNames' => array(
             'errors', 'info', 'logged'
         ),
+        'social' => array(
+            'facebook'=>array(
+                'FbId'  => "1547080372195701",
+                'FbSecret' => "3572134e7c25a5320d706e361e42e172"
+            )
+        )
 
     );
 

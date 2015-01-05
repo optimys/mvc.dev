@@ -24,7 +24,7 @@ abstract class Controller {
         $data['errors'] = Info_h::getParagraph("No such method",'warning');
         $error = new View();
         $error->setData($data);
-        $error->display('error',array('panel'));
+        $error->display('error',array('panel'),$this->model);
     }
     public  function index(){
         $data = "This is default method ".__METHOD__;

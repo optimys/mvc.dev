@@ -48,7 +48,7 @@ class Model
 
         $result = mysql_query($query, $this->db);
         $this->result = $result;
-        return $this;
+        return $result;
     }
 
     public function update($table, $colVal=array(), $where = array())
