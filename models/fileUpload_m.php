@@ -9,14 +9,16 @@
 class FileUpload_m
 {
 
-    static public function getPathToAvatar($inputName)
+    static public function getPathToAvatar($source)
     {
-        $fileName = "uploads/users/pictures/avatar/default-avatar.png";
-        if (empty($_FILES[$inputName]['error'])) {
-            $fileName = "uploads/users/pictures/avatar/" . Input_h::get("login") . '_avatar.jpeg';
-            copy($_FILES[$inputName]['tmp_name'], $fileName);
+        $fileName = "uploads/users/pictures/avatar/";
+        if (!is_array($source)) {
+            $fileName .=Input_h::get("login") . '_avatar.jpeg';
+            copy($_FILES[$source]['tmp_name'], $fileName);
+        }else{
+            copy($source['avatar_url'], $fileName.$source['id'].".jpeg");
         }
-        return $fileName;
+        return $fileName.$source['id'].".jpeg";
     }
 
 

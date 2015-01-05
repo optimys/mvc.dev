@@ -12,6 +12,7 @@ class User_m extends Model
     private $validatorObject;
     private $loggedIn = false;
     private $userDataObject;
+    private $fbObject;
 
     public function __construct()
     {
@@ -41,7 +42,8 @@ class User_m extends Model
     }
 
     private function newSocialUser($fields=array()){
-        $fields["avatar_url"]=$this->fbObject->getFbPhoto();
+        $fields["avatar_url"]=FileUpload_m::getPathToAvatar($fields);
+        unset($fields['picture']);
         if($this->insert('facebook_users',$fields)){
             return $fields['id'];
         }
@@ -119,7 +121,7 @@ class User_m extends Model
         $fbId = $this->fbObject->getFbProfile()['id'];
         $result = $this->get('facebook_users',array('id','=',$fbId))->first();
         if($result){
-            Session_h::set("logged",$result['id']);
+            Session_h::set("logged",$result->id);
             $this->loggedIn = true;
         }else{
             $newUserId = $this->newSocialUser($this->fbObject->getFbProfile());

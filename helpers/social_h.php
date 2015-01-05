@@ -69,6 +69,7 @@ class Social_h
         $request = new FB\FacebookRequest($session, 'GET', '/me');
         $request = $request->execute();
         $facebookUser = $request->getGraphObject()->asArray();
+        $facebookUser['avatar_url']=$this->getFbPhoto();
         return $facebookUser;
     }
 
